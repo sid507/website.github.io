@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
+    <!-- <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css">
+    <title>Contact</title>
+    <style>
+        body{
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container card">
+        <h1 class="center-align">
+            My <span class="text-danger">Contacts</span>
+        </h1>
+        <input type="text" id="filter" class="" placeholder="Search Name">
+        <form id="sub">
+            <div class="card px-5 pb-2">
+                <label for="pname"></label>
+                <input type="text" placeholder="Add Contact" id="pname">
+                <input type="submit" value="Add" class="btn btn-danger">
+            </div>
+        </form>
+        <ul id="names" class="card collection with-header ">
+        <li class="collection-header">
+            <h5>A</h5>
+            <li class="collection-item">
+                <a href="#">Anna</a>
+            </li>
+            <li class="collection-item">
+                <a href="#">Allu</a>
+            </li>
+        </li>
+        
+        <li class="collection-header">
+            <h5>B</h5>
+            <li class="collection-item">
+                <a href="#">Bablu</a>
+            </li>
+            <li class="collection-item">
+                <a href="#">Baburao</a>
+            </li>
+        </li>
+        
+        <li class="collection-header">
+            <h5>C</h5>
+                <li class="collection-item">
+                    <a href="#">Carry</a>
+                </li>
+            <li class="collection-item">
+                <a href="#">Chylie </a>
+            </li>
+        </li>
+        
+        </ul>
+    </div>
+    <script>
+        let filterinput=document.getElementById('filter');
+        filterinput.addEventListener('keyup',filtername);
+        function filtername(e){
+            var filtervalue=document.getElementById('filter').value.toUpperCase();
+            let ul=document.getElementById('names');
+            let li=ul.querySelectorAll('li.collection-item');
+            for(var i=0;i<li.length;i++){
+                let a=li[i].getElementsByTagName('a')[0];
+                if(a.innerHTML.toUpperCase().indexOf(filtervalue)>-1){
+                    li[i].style.display='';
+                }
+                else{
+                    li[i].style.display='None';
+                }
+            }
+            console.log(li);
+        }
+
+        let add=document.getElementById('sub');
+        add.addEventListener('submit',addn);
+        function addn(e){
+            e.preventDefault();
+            var flag=1;
+            var naam=document.getElementById('pname').value;
+            var ul=document.getElementById('names');
+            var header=ul.querySelectorAll('li.collection-header');
+            for(var i=0;i<header.length;i++){
+                var head=header[i].getElementsByTagName('h5')[0];
+                var first=head.innerHTML.toUpperCase();
+                console.log(first);
+                if(naam[0].toUpperCase()==first[0]){
+                    var neww=document.createElement('li');
+                    neww.className="collection-item";
+                    var a=document.createElement('a');
+                    a.href="#";
+                    a.textContent=naam;
+                    neww.appendChild(a);
+                    console.log(neww);
+                    console.log(header[i]);
+                    flag=0;
+                    head.parentNode.appendChild(neww);
+                }
+            }
+            console.log(flag);
+            if(flag==1){
+                var ul=document.getElementById('names');
+                first=naam[0].toUpperCase();
+                var head=document.createElement('li');
+                head.className='collection-header';
+                var h5=document.createElement('h5');
+                h5.textContent=first;
+                head.appendChild(h5);
+                var neww=document.createElement('li');
+                    neww.className="collection-item";
+                    var a=document.createElement('a');
+                    a.href="#";
+                    a.textContent=naam;
+                    neww.appendChild(a);
+                    head.appendChild(neww);
+                    ul.appendChild(head);
+                
+            }
+            }
+    </script>
+</body>
+</html>
